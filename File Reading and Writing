@@ -1,0 +1,43 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileReadWrite {
+
+    // Method to write to a file
+    public static void writeToFile(String filename, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to read from a file
+    public static String readFromFile(String filename) {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content.toString();
+    }
+
+    public static void main(String[] args) {
+        String filename = "example.txt";
+        String contentToWrite = "Hello, this is a test file.";
+
+        writeToFile(filename, contentToWrite);
+        System.out.println("Content written to file.");
+
+        String contentRead = readFromFile(filename);
+        System.out.println("Content read from file:");
+        System.out.println(contentRead);
+    }
+}
